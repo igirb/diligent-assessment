@@ -12,10 +12,15 @@ export async function createApp(store: Store<RecipeType[]>, args: string[], ) {
     'list': list
   }
 
+  try {
   if(command in commands) {
     const commandFunction = commands[command] 
     await commandFunction(store, restArgs);
   } else {
     console.error(`Unknown command: ${command}`);
   }
+} catch (error) {
+  throw new AppError(`Please use the valid syntax for handling recipe commands: npm start -- <argument 1>`)
+}
+
 }
