@@ -16,6 +16,10 @@ export async function createApp(store: Store<RecipeType[]>, args: string[], ) {
   if(command in commands) {
     const commandFunction = commands[command] 
     await commandFunction(store, restArgs);
+
+    if (command === 'list' && restArgs.length > 0) {
+      console.error('Error: The list command should not have any arguments.');
+    }
   } else {
     console.error(`Unknown command: ${command}`);
   }
