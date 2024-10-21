@@ -52,6 +52,7 @@ export async function create(store: Store<RecipeType[]>, args: string[]) {
   };
 
   recipes.push(newRecipe);
+  store.setValue(recipes);
 
   console.log(`New recipe is created with ID: ${newRecipe.id} and name: ${newRecipe.name}`);
 }
