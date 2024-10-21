@@ -16,6 +16,6 @@ export async function createApp(store: Store<RecipeType[]>, args: string[], ) {
     const commandFunction = commands[command] 
     await commandFunction(store, restArgs);
   } else {
-    throw new AppError(`Unknown command: ${command}`);
+    console.error(`Unknown command: ${command}`);
   }
 }
