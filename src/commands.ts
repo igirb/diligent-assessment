@@ -37,18 +37,22 @@ export async function create(store: Store<RecipeType[]>, args: string[]) {
   const recipe = new Recipe(store);
   const recipes = await recipe.readAll();
 
-  if (args.length !== 1) {
-    console.error('Error: The create command requires exactly one argument, the recipe name.');
-    return;
+  if (args.length !== 2) {
+    console.error('Error: The create command requires exactly two arguments, the recipe name and difficulty level.');
   }
 
-  const name = args[0];
-
   const newId = recipes.length > 0 ? Math.max(...recipes.map((recipe) => recipe.id)) + 1 : 1;
+  const name = args[0];
+  const difficulty = args[1] as RecipeType['difficulty'];
+
+  if (!(args[1] as RecipeType['difficulty']).includes(difficulty)) {
+    console.error('Error: Difficulty must be one of the following: easy, medium, hard.');
+  }
 
   const newRecipe: RecipeType = {
     id: newId,
-    name: name
+    name: name,
+    difficulty: difficulty
   };
 
   recipes.push(newRecipe);

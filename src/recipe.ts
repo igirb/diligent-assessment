@@ -3,6 +3,7 @@ import { Store } from "./stores/store.type"
 export type RecipeType = {
   id: number
   name: string
+  readonly difficulty: 'easy' | 'medium' | 'hard'
 }
 
 export class Recipe {
