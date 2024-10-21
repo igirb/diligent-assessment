@@ -20,13 +20,17 @@ export async function createApp(store: Store<RecipeType[]>, args: string[], ) {
     await commandFunction(store, restArgs);
 
     if (command === 'list' && restArgs.length > 0) {
-      console.error('Error: The list command should not have any arguments.');
+      throw new AppError('Error: The list command should not have any arguments.');
     }
   } else {
-    console.error(`Unknown command: ${command}`);
+    throw new AppError(`Unknown command: ${command}`);
   }
 } catch (error) {
-  throw new AppError(`Please use the valid syntax for handling recipe commands: npm start -- <argument 1>`)
+  if(error instanceof AppError) {
+    console.error(error.message)
+  } else {
+  console.log(error)
+  }
 }
 
 }
